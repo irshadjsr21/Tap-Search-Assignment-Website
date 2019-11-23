@@ -8,7 +8,9 @@ export function search(word) {
       const res = await axios.get(baseUrl + '?word=' + word);
       resolve(res.data);
     } catch (error) {
-      reject(error.response.data);
+      if (error && error.response && error.response.data)
+        reject(error.response.data);
+      else reject(null);
     }
   });
 }
@@ -20,7 +22,22 @@ export function addDocument(body) {
       const res = await axios.post(baseUrl, { document: splittedBody });
       resolve(res.data);
     } catch (error) {
-      reject(error.response.data);
+      if (error && error.response && error.response.data)
+        reject(error.response.data);
+      else reject(null);
+    }
+  });
+}
+
+export function clearDatabase() {
+  return new Promise(async (resolve, reject) => {
+    try {
+      await axios.post(baseUrl + '/clear', {});
+      resolve();
+    } catch (error) {
+      if (error && error.response && error.response.data)
+        reject(error.response.data);
+      else reject(null);
     }
   });
 }

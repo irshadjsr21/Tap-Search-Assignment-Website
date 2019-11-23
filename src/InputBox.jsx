@@ -1,11 +1,12 @@
 import React from 'react';
-import { addDocument } from './http';
+import { addDocument, clearDatabase } from './http';
 
 class InputBox extends React.Component {
   state = {
     inputText: '',
     isAdded: false,
     isLoading: false,
+    isClearing: false,
   };
 
   onSubmit = (e) => {
@@ -21,6 +22,22 @@ class InputBox extends React.Component {
       .catch((error) => {
         console.log(error);
         this.setState({ isLoading: false });
+      });
+  };
+
+  onClear = (e) => {
+    e.preventDefault();
+    this.setState({ isClearing: true });
+    clearDatabase()
+      .then(() => {
+        this.setState({ isClearing: false });
+        setTimeout(() => {
+          this.setState({ isAdded: false });
+        }, 2000);
+      })
+      .catch((error) => {
+        console.log(error);
+        this.setState({ isClearing: false });
       });
   };
 
@@ -47,11 +64,18 @@ class InputBox extends React.Component {
               value={this.state.inputText}
             ></textarea>
             <button
-              className="btn btn-primary"
+              className="btn btn-primary mr-4"
               onClick={this.onSubmit}
               disabled={this.state.isLoading}
             >
               Submit
+            </button>
+            <button
+              className="btn btn-primary"
+              onClick={this.onClear}
+              disabled={this.state.isClearing}
+            >
+              Clear Database
             </button>
           </div>
         </div>
