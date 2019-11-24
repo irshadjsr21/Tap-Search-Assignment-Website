@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const baseUrl = 'https://tap-search-assignment.herokuapp.com/documents';
+// const baseUrl = 'https://tap-search-assignment.herokuapp.com/documents';
+const baseUrl = 'http://localhost:3000/documents';
 
 export function search(word) {
   return new Promise(async (resolve, reject) => {

@@ -28,3 +28,21 @@ body {
     margin-top: 5px;
   }
 }
+
+@media (max-width: 1024px) {
+  .inputBoxContainer {
+    width: 60%;
+  }
+}
+
+@media (max-width: 768px) {
+  .inputBoxContainer {
+    width: 80%;
+  }
+}
+
+@media (max-width: 425px) {
+  .inputBoxContainer {
+    width: 95%;
+  }
+}
